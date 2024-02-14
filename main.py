@@ -125,21 +125,6 @@ class BackTesting:
         print(f"You have a total profit of: {total_funds-100000}")
         return total_funds
 
-    def create_backtest_chart(self):
-        x = []
-        y = []
-        net_profit = 0
-        for item in self.trades:
-            index = item["SequenceNum"]
-            profit = item["Profit"]
-            net_profit += profit
-            x.append(index)
-            y.append(net_profit)
-        fig, ax = plt.subplots()
-        x.reverse()
-        ax.plot(x, y)
-        plt.show()
-
 
 #the folowing 2 classes are their own thing, no Mongo interface
 
@@ -162,6 +147,7 @@ class FiveYearBacktesting():
         self.buying_strategy = buying_strategy
         self.selling_strategy = selling_strategy
         self.holdings = []
+        
     def get_five_years_data(self):
         data = yfinance.Ticker("AAPL").history(period='5y')
         open_prices = [price for price in data["Open"]]
